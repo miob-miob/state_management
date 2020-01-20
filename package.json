@@ -1,0 +1,39 @@
+{
+  "name": "state_management",
+  "version": "0.0.0",
+  "description": "learning putposes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miob-miob/state_management.git"
+  },
+  "keywords": [
+    "learn",
+    "state"
+  ],
+  "author": "miob",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miob-miob/state_management/issues"
+  },
+  "homepage": "https://github.com/miob-miob/state_management#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  }
+}
