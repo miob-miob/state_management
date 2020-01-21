@@ -3,6 +3,18 @@ import { theme } from '../theme';
 import { GameGrid } from './grid';
 import { getArrayInSquareMatrix, getRandomArray } from '../../utils';
 
+import { setCellActive, resetGame } from '../redux/currentGame.redux';
+import {
+  getCellsOrder,
+  getCellStates,
+  getCurrentGameStartTime,
+  getHighestActiveLabel,
+  getLastGameDuration,
+  isAllActive,
+  isCurrentGameStored
+} from '../redux/selectors';
+import { setCurrentGameStored, storeCurrentGame } from '../redux/statistics.redux';
+
 const styles = jss.createStyleSheet({
   root: {
     display: 'flex',
@@ -37,9 +49,27 @@ const getExampleGridData = () => {
   return getArrayInSquareMatrix(dataForGrid);
 };
 
-export const CurrentGamePage = (state) => {
-  const secondsLastGame = 10.8;
-  const gameFinished = true;
+const extractDataAndHandlersForGrid = (state, dispatch) => {
+  const order = getCellsOrder(state);
+  const cellStates = getCellStates(state);
+  const highestActiveLabel = getHighestActiveLabel(state);
+  const statesAndHandlers = order.map((label) => ({
+    ...cellStates[label],
+    onClick: (label === highestActiveLabel + 1) ? () => dispatch(setCellActive(label)) : () => {}
+  }));
+
+  return getArrayInSquareMatrix(statesAndHandlers);
+};
+
+export const CurrentGamePage = (state, dispatch) => {
+  const lastGaneDuration = getLastGameDuration(state);
+  const allActive = isAllActive(state);
+  const restartGame = () => {
+    dispatch(resetGame());
+    dispatch(setCurrentGameStored(false));
+  };
+  const currentGameStored = isCurrentGameStored(state);
+
 
   const root = document.createElement('div');
   root.className = styles.classes.root;
@@ -50,22 +80,31 @@ export const CurrentGamePage = (state) => {
   const restartGameButton = document.createElement('button');
   restartGameButton.className = styles.classes.restartGameButton;
   restartGameButton.textContent = 'Restart game';
+  restartGameButton.onclick = restartGame;
   controlPanel.appendChild(restartGameButton);
 
 
   const timeOfLastGame = document.createElement('div');
-  timeOfLastGame.textContent = `Last game duration: ${secondsLastGame} s`;
+  timeOfLastGame.textContent = `Last game duration: ${lastGaneDuration} s`;
   controlPanel.appendChild(timeOfLastGame);
 
-  if (gameFinished) {
+
+  if (allActive && !currentGameStored) {
+    const order = getCellsOrder(state);
+    const startTime = getCurrentGameStartTime(state);
+
+
     const newGameButton = document.createElement('button');
     newGameButton.className = styles.classes.newGameButton;
-    newGameButton.textContent = 'New game';
+    newGameButton.textContent = 'Finish game';
+    newGameButton.onclick = () => {
+      dispatch(storeCurrentGame(order, startTime));
+    };
     controlPanel.appendChild(newGameButton);
   }
 
 
-  const dataForGrid = state ? [] : getExampleGridData();
+  const dataForGrid = state ? extractDataAndHandlersForGrid(state, dispatch) : getExampleGridData();
 
   root.appendChild(GameGrid(dataForGrid));
   root.appendChild(controlPanel);

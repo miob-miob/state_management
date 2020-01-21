@@ -1,4 +1,8 @@
+import { store } from './redux/store';
 import { jss } from './jss';
+
+import { setPage } from './redux/navigation.redux';
+import { getCurrentPage, getNumberOfPreviousGames } from './redux/selectors';
 
 import { Navigation } from './components/navigation';
 import { CurrentGamePage } from './components/currentGamePage';
@@ -19,13 +23,18 @@ appRoot.className = rootStyleSheet.classes.root;
 
 const rerender = (state, dispatch) => {
   appRoot.innerHTML = '';
-  const page = 'currentGame';
 
-  appRoot.appendChild(Navigation(page));
+
+  const page = getCurrentPage(state);
+  const numberOfPreviousGames = getNumberOfPreviousGames(state);
+  const navigateCurrentGame = () => { dispatch(setPage('currentGame')); };
+  const navigateStatistics = () => dispatch(setPage('statistics'));
+
+  appRoot.appendChild(Navigation(page, navigateCurrentGame, navigateStatistics, numberOfPreviousGames));
 
 
   if (page === 'currentGame') {
-    appRoot.appendChild(CurrentGamePage(state));
+    appRoot.appendChild(CurrentGamePage(state, dispatch));
   } else if (page === 'statistics') {
     appRoot.appendChild(StatisticsPage(state));
   } else {
@@ -35,5 +44,10 @@ const rerender = (state, dispatch) => {
   }
 };
 
-setInterval(rerender, 20000);
-rerender();
+const listenToChanges = () => {
+  rerender(store.getState(), store.dispatch);
+};
+
+
+store.subscribe(listenToChanges);
+listenToChanges();
