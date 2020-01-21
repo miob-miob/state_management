@@ -2,7 +2,7 @@
 export const dumpShuffle = (array) => { array.sort(() => Math.random() - 0.5); };
 
 
-export const get2DArray = (nItems) => {
+export const getShuffledArray = (nItems) => {
   const edge = Math.sqrt(nItems);
   if (edge % 1 !== 0) {
     throw new Error('Gimme number i can make squere of it!!!');
@@ -12,12 +12,17 @@ export const get2DArray = (nItems) => {
     numbers.push(number);
   }
   dumpShuffle(numbers);
-  const data = numbers.map((number) => ({ label: number, onClick: () => console.log(number), active: Math.random() > 0.5 }));
-  const finalMatrix = [];
+  return numbers;
+};
+
+export const getArrayInSquareMatrix = (array) => {
+  const copy = [...array];
+  const edge = Math.sqrt(array.length);
+  const squareMatrix = [];
   for (let index = 0; index < edge; index += 1) {
-    finalMatrix.push(data.splice(0, edge));
+    squareMatrix.push(copy.splice(0, edge));
   }
-  return finalMatrix;
+  return squareMatrix;
 };
 
 export const getRandInt = (min = 0, max = 100) => {
