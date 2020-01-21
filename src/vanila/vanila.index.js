@@ -2,13 +2,16 @@
 // import { getRandomString, getRandInt } from '../utils/getRandomString';
 
 
-import { Cell } from './components/cell';
+import { GameGrid } from './components/grid';
+import { get2DArray } from '../utils';
 
 const appRoot = document.getElementById('root');
 
-const cellOne = Cell('1', () => console.log(1), true);
-const cellTwo = Cell('2', () => console.log(2), false);
+const rerender = () => {
+  appRoot.innerHTML = '';
+  const data = get2DArray(16);
+  appRoot.appendChild(GameGrid(data));
+};
 
-
-appRoot.appendChild(cellOne);
-appRoot.appendChild(cellTwo);
+setInterval(rerender, 10000);
+rerender();

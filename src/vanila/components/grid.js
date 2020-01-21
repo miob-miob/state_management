@@ -5,14 +5,12 @@ const sheet = jss.createStyleSheet({
   row: {
     display: 'flex',
     flexFlow: 'row',
-    justifyContent: 'flex-start',
-    margin: '5px 0'
+    justifyContent: 'flex-start'
   },
   gameGrid: {
     display: 'flex',
     justifyContent: 'flex-start',
-    flexFlow: 'column',
-    margin: '0 5px'
+    flexFlow: 'column'
   }
 
 });
@@ -22,7 +20,7 @@ const GridRow = (itemsInRow) => {
   const root = document.createElement('div');
   root.setAttribute('class', sheet.classes.row);
   itemsInRow.forEach((item) => {
-    root.appendChild(Cell(...item));
+    root.appendChild(Cell(item.label, item.active, item.onClick));
   });
   return root;
 };
