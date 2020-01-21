@@ -3,17 +3,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode:'development',
+  mode: 'development',
   devtool: 'inline-source-map',
-  plugins:[
+  plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin()],
+    new HtmlWebpackPlugin({
+      template: './src/vanila/template.ejs',
+      templateParameters: { ttt: 'Reduxxxxxxxx' }
+    })],
   entry: {
-    reduxx: './src/reduxx/reduxx.index.js',
+    vanilla: './src/vanila/vanila.index.js',
   },
   output: {
-    filename: "[name].bundle.js",
-    path:path.resolve(__dirname, 'dist')
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),

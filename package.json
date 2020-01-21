@@ -4,7 +4,6 @@
   "description": "learning putposes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "start": "webpack-dev-server --open"
   },
@@ -22,7 +21,11 @@
     "url": "https://github.com/miob-miob/state_management/issues"
   },
   "homepage": "https://github.com/miob-miob/state_management#readme",
-  "dependencies": {},
+  "dependencies": {
+    "jss": "^10.0.3",
+    "jss-plugin-nested": "^10.0.3",
+    "jss-preset-default": "^10.0.3"
+  },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "eslint": "^6.1.0",
