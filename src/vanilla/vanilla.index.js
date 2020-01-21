@@ -1,6 +1,4 @@
 import { jss } from './jss';
-// import { getRandomString, getRandInt } from '../utils/getRandomString';
-
 
 import { Navigation } from './components/navigation';
 import { CurrentGamePage } from './components/currentGamePage';
@@ -21,7 +19,7 @@ appRoot.className = rootStyleSheet.classes.root;
 
 const rerender = (state, dispatch) => {
   appRoot.innerHTML = '';
-  const page = 'statistics';
+  const page = 'currentGame';
 
   appRoot.appendChild(Navigation(page));
 

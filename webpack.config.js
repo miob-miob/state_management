@@ -8,11 +8,11 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/vanila/template.ejs',
+      template: './src/vanilla/template.ejs',
       templateParameters: { ttt: 'Reduxxxxxxxx' }
     })],
   entry: {
-    vanilla: './src/vanila/vanila.index.js',
+    vanilla: './src/vanilla/vanilla.index.js'
   },
   output: {
     filename: '[name].bundle.js',
