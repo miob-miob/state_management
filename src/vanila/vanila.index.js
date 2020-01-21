@@ -1,18 +1,41 @@
-// import { jss } from './jss';
+import { jss } from './jss';
 // import { getRandomString, getRandInt } from '../utils/getRandomString';
 
 
-import { GameGrid } from './components/grid';
-import { getShuffledArray, getArrayInSquareMatrix } from '../utils';
+import { Navigation } from './components/navigation';
+import { CurrentGamePage } from './components/currentGamePage';
+import { StatisticsPage } from './components/statisticsPage';
 
+
+const rootStyleSheet = jss.createStyleSheet({
+  root: {
+    display: 'flex',
+    flexFlow: 'column'
+  }
+
+});
 const appRoot = document.getElementById('root');
+rootStyleSheet.attach();
+appRoot.className = rootStyleSheet.classes.root;
 
-const rerender = () => {
+
+const rerender = (state, dispatch) => {
   appRoot.innerHTML = '';
-  const data = getShuffledArray(16);
-  const dataForGrid = data.map((item) => ({ active: Math.random() > 0.5, label: item, onClick: () => console.log(item) }));
-  appRoot.appendChild(GameGrid(getArrayInSquareMatrix(dataForGrid)));
+  const page = 'statistics';
+
+  appRoot.appendChild(Navigation(page));
+
+
+  if (page === 'currentGame') {
+    appRoot.appendChild(CurrentGamePage(state));
+  } else if (page === 'statistics') {
+    appRoot.appendChild(StatisticsPage(state));
+  } else {
+    const notFoundPage = document.createElement('div');
+    notFoundPage.textContent = 'Unknown route!!!';
+    appRoot.appendChild(notFoundPage);
+  }
 };
 
-setInterval(rerender, 10000);
+setInterval(rerender, 20000);
 rerender();

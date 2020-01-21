@@ -2,7 +2,7 @@
 export const dumpShuffle = (array) => { array.sort(() => Math.random() - 0.5); };
 
 
-export const getShuffledArray = (nItems) => {
+export const getRandomArray = (nItems) => {
   const edge = Math.sqrt(nItems);
   if (edge % 1 !== 0) {
     throw new Error('Gimme number i can make squere of it!!!');
