@@ -1,4 +1,4 @@
-import { jss } from './jss';
+import { jss } from '../jss';
 
 import { Navigation } from './components/navigation';
 import { CurrentGamePage } from './components/currentGamePage';

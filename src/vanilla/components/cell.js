@@ -1,5 +1,5 @@
-import { jss } from '../jss';
-import { theme } from '../theme';
+import { jss } from '../../jss';
+import { theme } from '../../theme';
 
 const sheet = jss.createStyleSheet({
   root: {
@@ -9,7 +9,7 @@ const sheet = jss.createStyleSheet({
     width: '133px',
     height: '133px',
     fontSize: '300%',
-    margin:'5px',
+    margin: '5px',
     border: ['2px', 'solid', theme.border],
     borderRadius: '10px',
     '&.active': {
@@ -22,7 +22,7 @@ const sheet = jss.createStyleSheet({
 });
 sheet.attach();
 
-export const Cell = (label = 'undknown',active = false, onClick = () => {}) => {
+export const Cell = (label = 'undknown', active = false, onClick = () => {}) => {
   const root = document.createElement('div');
   root.setAttribute('class', `${sheet.classes.root} ${active ? 'active' : 'nonActive'}`);
   root.innerText = label;

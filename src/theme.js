@@ -4,5 +4,6 @@ export const theme = {
   border: '#888888',
   lightGrey: '#bbbbbb',
   extraLightGray: '#fafafa',
-  sexyPurple: '#dd55aa'
+  sexyPurple: '#dd55aa',
+  error: '#ad0000'
 };

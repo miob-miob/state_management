@@ -8,15 +8,26 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/vanilla/template.ejs',
+      template: './src/template.ejs',
       templateParameters: { ttt: 'Reduxxxxxxxx' }
     })],
   entry: {
-    vanilla: './src/vanilla/vanilla.index.js'
+    reactAsync: ['@babel/polyfill', './src/reactAsync/reactAsync.index.js']
   },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      }
+    ]
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),

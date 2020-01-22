@@ -1,4 +1,4 @@
-import { jss } from '../jss';
+import { jss } from '../../jss';
 import { Cell } from './cell';
 
 const sheet = jss.createStyleSheet({

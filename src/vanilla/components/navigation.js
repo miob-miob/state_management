@@ -1,5 +1,5 @@
-import { jss } from '../jss';
-import { theme } from '../theme';
+import { jss } from '../../jss';
+import { theme } from '../../theme';
 
 
 const styleSheet = jss.createStyleSheet({
