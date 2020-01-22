@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { cities } from './services';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { jss } from '../jss';
 import { theme } from '../theme';
+import { loadCities } from './redux/store';
 
 const styles = jss.createStyleSheet({
   availableCitiesContainer: {
@@ -49,25 +50,43 @@ const styles = jss.createStyleSheet({
 });
 styles.attach();
 
+
 const Loader = () => <div>Loading...</div>;
 
 const CityButton = ({ city, onclick }) => <button className={styles.classes.availableCitiesButton} onClick={onclick}>
     {city}
   </button>;
 
-export const AvailableCities = () => {
-  const isLoading = false;
-  const citiesData = cities;
 
+const AvailableCitiesBase = ({
+  isLoading, data, error, fetchCities
+}) => {
+  useEffect(fetchCities, []);
+  const probablyData = data || [];
+  if (error) {
+    return <div>We are fucked up!</div>;
+  }
   return (
     <div className={styles.classes.availableCitiesContainer}>
     <h3>Available cities</h3>
-    {isLoading ? <Loader/> : citiesData.map((city) => <CityButton key={city.city} city={city.city}/>)}
+    {isLoading ? <Loader/> : probablyData.map((city) => <CityButton key={city.city} city={city.city}/>)}
 
   </div>
   );
 };
 
+
+const mapStateToProps = (state) => ({
+  isLoading: state.loading,
+  data: state.data,
+  error: state.error
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCities: () => dispatch(loadCities())
+});
+
+export const AvailableCities = connect(mapStateToProps, mapDispatchToProps)(AvailableCitiesBase);
 
 const Temperature = ({ temperature }) => (
   <div className={styles.classes.weatherContainer}>

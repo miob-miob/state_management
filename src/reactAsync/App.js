@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { jss } from '../jss';
 import { store } from './redux/store';
 import { AvailableCities, WeatherMaster } from './components';
@@ -10,10 +11,11 @@ const sheet = jss.createStyleSheet({
   }
 });
 sheet.attach();
-console.log(store.getState());
 export const App = () => (
-  <div className={sheet.classes.appRoot}>
-  <AvailableCities/>
-  <WeatherMaster/>
-</div>
+  <Provider store={store}>
+    <div className={sheet.classes.appRoot}>
+      <AvailableCities/>
+      <WeatherMaster/>
+    </div>
+  </Provider>
 );
