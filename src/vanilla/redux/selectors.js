@@ -27,10 +27,36 @@ export const getLastGameDuration = (state) => {
 
 export const getNumberOfPreviousGames = (state) => getPreviousGamesData(state).length;
 
+
+const getPreviousGamesDurations = (state) => getPreviousGamesData(state).map((item) => item.duration);
+
 export const getSlowestGameDuration = (state) => {
-  const data = getPreviousGamesData(state);
-  if (data.length === 0) {
+  const durations = getPreviousGamesDurations(state);
+  if (durations.length === 0) {
     return '-';
   }
-  return Math.max(...data.map((game) => game.duration)) / 1000;
+  return Math.max(...durations) / 1000;
+};
+
+
+export const getQuickestGameDuration = (state) => {
+  const durations = getPreviousGamesDurations(state);
+  if (durations.length === 0) {
+    return '-';
+  }
+  return Math.min(...durations) / 1000;
+};
+
+
+export const getAverageGameTime = (state) => {
+  const durations = getPreviousGamesDurations(state);
+  if (durations.length === 0) {
+    return '-';
+  }
+  return (durations.reduce((sum, current) => sum + current, 0) / durations.length) / 1000;
+};
+
+export const getTotalTime = (state) => {
+  const durations = getPreviousGamesDurations(state);
+  return durations.reduce((sum, current) => sum + current, 0) / 1000;
 };

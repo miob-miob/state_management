@@ -3,7 +3,7 @@ import { getRandomArray } from '../../utils';
 const SET_CELL_ACTIVE = 'currentGame/SET_CELL_ACTIVE';
 const RESET_GAME = 'currentGame/RESET_GAME';
 
-export const N_CELLS = 9;
+export const N_CELLS = 16;
 const getInitialState = () => {
   const data = getRandomArray(N_CELLS);
   const hashWithCellStates = {};

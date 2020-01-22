@@ -1,6 +1,6 @@
 import { jss } from '../jss';
 import { theme } from '../theme';
-import { getSlowestGameDuration } from '../redux/selectors';
+import {getAverageGameTime, getQuickestGameDuration, getSlowestGameDuration, getTotalTime} from '../redux/selectors';
 
 const style = jss.createStyleSheet({
   root: {
@@ -48,9 +48,9 @@ export const StatisticsPage = (state, dispatch) => {
   root.appendChild(title);
 
   const statData = [
-    { label: 'Total spend time: ', value: null },
-    { label: 'Average game time: ', value: null },
-    { label: 'Quickest game time: ', value: null },
+    { label: 'Total spend time: ', value: getTotalTime(state) },
+    { label: 'Average game time: ', value: getAverageGameTime(state) },
+    { label: 'Quickest game time: ', value: getQuickestGameDuration(state) },
     { label: 'SLowest game time: ', value: getSlowestGameDuration(state) }
   ];
 
